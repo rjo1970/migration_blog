@@ -6,5 +6,4 @@ defmodule BlogWeb.PostView do
     |> Earmark.as_html!()
     |> raw()
   end
-
 end

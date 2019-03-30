@@ -1,0 +1,3 @@
+mix phx.new blog
+mix phx.gen.html Blogs Post posts title:string body:text
+mix phx.gen.html Blogs Comment comments snark:string
