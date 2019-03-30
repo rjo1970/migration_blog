@@ -1,18 +1,7 @@
-<h1>Show Post</h1>
+<h1><%= @post.title %></h1>
 
-<ul>
+<div id="post-body"><%= as_markdown(@post) %></div>
 
-  <li>
-    <strong>Title:</strong>
-    <%= @post.title %>
-  </li>
-
-  <li>
-    <strong>Body:</strong>
-    <%= @post.body %>
-  </li>
-
-</ul>
-
+<br/>
 <span><%= link "Edit", to: Routes.post_path(@conn, :edit, @post) %></span>
 <span><%= link "Back", to: Routes.post_path(@conn, :index) %></span>
