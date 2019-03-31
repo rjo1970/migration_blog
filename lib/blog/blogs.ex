@@ -7,6 +7,8 @@ defmodule Blog.Blogs do
   alias Blog.Repo
 
   alias Blog.Blogs.Post
+  alias Blog.Blogs.PostComment
+  alias Blog.Blogs.Comment
 
   @doc """
   Returns the list of posts.
@@ -35,7 +37,10 @@ defmodule Blog.Blogs do
       ** (Ecto.NoResultsError)
 
   """
-  def get_post!(id), do: Repo.get!(Post, id)
+  def get_post!(id) do
+     Repo.get!(Post, id)
+     |> Repo.preload(:comments)
+  end
 
   @doc """
   Creates a post.
@@ -101,8 +106,6 @@ defmodule Blog.Blogs do
   def change_post(%Post{} = post) do
     Post.changeset(post, %{})
   end
-
-  alias Blog.Blogs.Comment
 
   @doc """
   Returns the list of comments.
@@ -196,5 +199,13 @@ defmodule Blog.Blogs do
   """
   def change_comment(%Comment{} = comment) do
     Comment.changeset(comment, %{})
+  end
+
+  def add_comment_to_post(comment, post) do
+    Blog.Blogs.PostComment.changeset(
+      %Blog.Blogs.PostComment{},
+      %{post_id: post.id, comment_id: comment.id}
+    )
+    |> Blog.Repo.insert()
   end
 end

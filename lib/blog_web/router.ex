@@ -18,7 +18,7 @@ defmodule BlogWeb.Router do
 
     resources "/posts", PostController
     resources "/comments", CommentController
-    
+
     get "/", PostController, :index
   end
 
