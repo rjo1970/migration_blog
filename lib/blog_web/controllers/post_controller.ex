@@ -2,7 +2,7 @@ defmodule BlogWeb.PostController do
   use BlogWeb, :controller
 
   alias Blog.Blogs
-  alias Blog.Blogs.Post
+  alias Blog.Blogs.{Post, Comment}
 
   def index(conn, _params) do
     posts = Blogs.list_posts()
@@ -28,7 +28,9 @@ defmodule BlogWeb.PostController do
 
   def show(conn, %{"id" => id}) do
     post = Blogs.get_post!(id)
-    render(conn, "show.html", post: post)
+    conn = put_session(conn, :post_id, post.id)
+    changeset = Blogs.change_comment(%Comment{post_id: id})
+    render(conn, "show.html", post: post, comment_changeset: changeset)
   end
 
   def edit(conn, %{"id" => id}) do

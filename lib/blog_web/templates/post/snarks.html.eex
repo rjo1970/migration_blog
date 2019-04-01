@@ -1,0 +1,9 @@
+<h2>Snarks</h2>
+
+<ul>
+<%= for comment <- @post.comments do %>
+  <li><%= comment.snark %></li>
+<% end %>
+</ul>
+
+<%= render(BlogWeb.CommentView, "form.html", post: @post, changeset: @changeset, action: @action) %>

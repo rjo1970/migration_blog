@@ -38,8 +38,8 @@ defmodule Blog.Blogs do
 
   """
   def get_post!(id) do
-     Repo.get!(Post, id)
-     |> Repo.preload(:comments)
+    Repo.get!(Post, id)
+    |> Repo.preload(:comments)
   end
 
   @doc """
@@ -149,9 +149,17 @@ defmodule Blog.Blogs do
 
   """
   def create_comment(attrs \\ %{}) do
-    %Comment{}
-    |> Comment.changeset(attrs)
-    |> Repo.insert()
+    post_id = Map.get(attrs, "post_id")
+    post = get_post!(post_id)
+
+    {:ok, comment} =
+      %Comment{}
+      |> Comment.changeset(attrs)
+      |> Repo.insert()
+
+    add_comment_to_post(comment, post)
+
+    {:ok, comment}
   end
 
   @doc """

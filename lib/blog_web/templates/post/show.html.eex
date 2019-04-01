@@ -5,5 +5,7 @@
 </div>
 
 <br/>
+<%= render("snarks.html", post: @post, changeset: @comment_changeset, action: Routes.comment_path(@conn, :create)) %>
+
 <span><%= link "Edit", to: Routes.post_path(@conn, :edit, @post) %></span>
 <span><%= link "Back", to: Routes.post_path(@conn, :index) %></span>

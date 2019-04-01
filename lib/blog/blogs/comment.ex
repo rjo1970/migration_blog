@@ -5,6 +5,7 @@ defmodule Blog.Blogs.Comment do
 
   schema "comments" do
     field :snark, :string
+    field :post_id, :integer, virtual: true
     has_one(:post_comment, PostComment)
     has_one(:post, through: [:post_comment, :post])
 
@@ -14,7 +15,7 @@ defmodule Blog.Blogs.Comment do
   @doc false
   def changeset(comment, attrs) do
     comment
-    |> cast(attrs, [:snark])
-    |> validate_required([:snark])
+    |> cast(attrs, [:snark, :post_id])
+    |> validate_required([:snark, :post_id])
   end
 end

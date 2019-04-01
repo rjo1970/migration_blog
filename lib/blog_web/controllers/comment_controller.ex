@@ -15,6 +15,8 @@ defmodule BlogWeb.CommentController do
   end
 
   def create(conn, %{"comment" => comment_params}) do
+    comment_params = Map.put(comment_params, "post_id", get_session(conn, :post_id))
+
     case Blogs.create_comment(comment_params) do
       {:ok, comment} ->
         conn
