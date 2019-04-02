@@ -149,9 +149,9 @@ defmodule Blog.Blogs do
 
   """
   def create_comment(attrs \\ %{}) do
-      %Comment{}
-      |> Comment.changeset(attrs)
-      |> Repo.insert()
+    %Comment{}
+    |> Comment.changeset(attrs)
+    |> Repo.insert()
   end
 
   @doc """
@@ -200,5 +200,4 @@ defmodule Blog.Blogs do
   def change_comment(%Comment{} = comment) do
     Comment.changeset(comment, %{})
   end
-
 end
