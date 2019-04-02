@@ -38,8 +38,14 @@ defmodule Blog.Blogs do
 
   """
   def get_post!(id) do
-    Repo.get!(Post, id)
-    |> Repo.preload(:comments)
+    Repo.one!(
+      from(
+        p in Post,
+        where: p.id == ^id,
+        left_join: comments in assoc(p, :comments),
+        preload: [comments: comments]
+      )
+    )
   end
 
   @doc """
