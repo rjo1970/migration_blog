@@ -15,13 +15,14 @@ defmodule BlogWeb.CommentController do
   end
 
   def create(conn, %{"comment" => comment_params}) do
-    comment_params = Map.put(comment_params, "post_id", get_session(conn, :post_id))
+    post_id = get_session(conn, :post_id)
+    comment_params = Map.put(comment_params, "post_id", post_id)
 
     case Blogs.create_comment(comment_params) do
       {:ok, comment} ->
         conn
         |> put_flash(:info, "Comment created successfully.")
-        |> redirect(to: Routes.comment_path(conn, :show, comment))
+        |> redirect(to: Routes.post_path(conn, :show, Blogs.get_post!(post_id)))
 
       {:error, %Ecto.Changeset{} = changeset} ->
         render(conn, "new.html", changeset: changeset)

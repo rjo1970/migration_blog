@@ -149,7 +149,7 @@ defmodule Blog.Blogs do
 
   """
   def create_comment(attrs \\ %{}) do
-    post_id = Map.get(attrs, "post_id")
+    post_id = Map.get(attrs, "post_id") || Map.get(attrs, :post_id)
     post = get_post!(post_id)
 
     {:ok, comment} =
