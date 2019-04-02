@@ -6,6 +6,7 @@ defmodule Blog.ETL.MovePostIdToComments do
 
     schema "posts" do
       # All I need is the implicit id field
+      timestamps()
     end
   end
 
@@ -14,6 +15,7 @@ defmodule Blog.ETL.MovePostIdToComments do
 
     schema "comments" do
       belongs_to(:post, Blog.ETL.MovePostIdToComments.Post)
+      timestamps()
     end
   end
 
@@ -23,6 +25,7 @@ defmodule Blog.ETL.MovePostIdToComments do
     schema "posts_comments" do
       belongs_to(:post, Blog.ETL.MovePostIdToComments.Post)
       belongs_to(:comment, Blog.ETL.MovePostIdToComments.Comment)
+      timestamps()
     end
   end
 
