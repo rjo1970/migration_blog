@@ -86,7 +86,7 @@ defmodule Blog.BlogsTest do
 
     test "list_comments/0 returns all comments" do
       _comment = comment_fixture()
-      assert Blogs.list_comments() |> Enum.count == 1
+      assert Blogs.list_comments() |> Enum.count() == 1
     end
 
     # test "get_comment!/1 returns the comment with given id" do
