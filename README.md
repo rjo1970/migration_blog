@@ -1,5 +1,13 @@
 # Blog
 
+This is a straw-man application to demonstrate migration techniques.
+
+It is not an actual, serious, blog.
+
+My original presentation is the contents of the blog.  Load the Postgresql sql dump blog_dev.sql to get the presentation.
+
+Have fun, you've been warned, etc. etc.
+
 To start your Phoenix server:
 
   * Install dependencies with `mix deps.get`
