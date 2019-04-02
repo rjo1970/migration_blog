@@ -2,13 +2,12 @@ defmodule Blog.Blogs.Post do
   use Ecto.Schema
   import Ecto.Changeset
 
-  alias Blog.Blogs.PostComment
+  alias Blog.Blogs.Comment
 
   schema "posts" do
     field :body, :string
     field :title, :string
-    has_many(:posts_comments, PostComment)
-    has_many(:comments, through: [:posts_comments, :comment])
+    has_many(:comments, Comment)
 
     timestamps()
   end

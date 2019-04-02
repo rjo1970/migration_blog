@@ -7,7 +7,6 @@ defmodule Blog.Blogs do
   alias Blog.Repo
 
   alias Blog.Blogs.Post
-  alias Blog.Blogs.PostComment
   alias Blog.Blogs.Comment
 
   @doc """
@@ -20,7 +19,8 @@ defmodule Blog.Blogs do
 
   """
   def list_posts do
-    Repo.all(Post)
+    from(p in Post, order_by: p.inserted_at)
+    |> Repo.all()
   end
 
   @doc """
@@ -149,17 +149,9 @@ defmodule Blog.Blogs do
 
   """
   def create_comment(attrs \\ %{}) do
-    post_id = Map.get(attrs, "post_id") || Map.get(attrs, :post_id)
-    post = get_post!(post_id)
-
-    {:ok, comment} =
       %Comment{}
       |> Comment.changeset(attrs)
       |> Repo.insert()
-
-    add_comment_to_post(comment, post)
-
-    {:ok, comment}
   end
 
   @doc """
@@ -209,11 +201,4 @@ defmodule Blog.Blogs do
     Comment.changeset(comment, %{})
   end
 
-  def add_comment_to_post(comment, post) do
-    Blog.Blogs.PostComment.changeset(
-      %Blog.Blogs.PostComment{},
-      %{post_id: post.id, comment_id: comment.id}
-    )
-    |> Blog.Repo.insert()
-  end
 end

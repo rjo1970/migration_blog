@@ -1,13 +1,11 @@
 defmodule Blog.Blogs.Comment do
   use Ecto.Schema
   import Ecto.Changeset
-  alias Blog.Blogs.{Post, PostComment}
+  alias Blog.Blogs.Post
 
   schema "comments" do
     field :snark, :string
-    field :post_id, :integer, virtual: true
-    has_one(:post_comment, PostComment)
-    has_one(:post, through: [:post_comment, :post])
+    belongs_to(:post, Post)
 
     timestamps()
   end

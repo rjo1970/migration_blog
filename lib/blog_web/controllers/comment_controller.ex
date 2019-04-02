@@ -19,7 +19,7 @@ defmodule BlogWeb.CommentController do
     comment_params = Map.put(comment_params, "post_id", post_id)
 
     case Blogs.create_comment(comment_params) do
-      {:ok, comment} ->
+      {:ok, _comment} ->
         conn
         |> put_flash(:info, "Comment created successfully.")
         |> redirect(to: Routes.post_path(conn, :show, Blogs.get_post!(post_id)))
